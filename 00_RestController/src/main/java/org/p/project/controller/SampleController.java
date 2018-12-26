@@ -1,5 +1,10 @@
 package org.p.project.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.p.project.domain.SampleVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,4 +32,32 @@ public class SampleController {
 		vo.setMno(123);
 		return vo;
 	}
-}
+	
+	@ResponseBody
+	@RequestMapping("/sendList")
+	public List<SampleVO> sendList(){
+		List<SampleVO> list=new ArrayList<>();
+		for(int i=0; i<10; i++) {
+			SampleVO vo=new SampleVO();
+			vo.setFirstName("¹«¹«");
+			vo.setLastName("¹Î¹Î");
+			vo.setMno(i);
+			list.add(vo);
+		}
+		return list;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/sendMap")
+	public Map<Integer, SampleVO> sendMap(){
+		Map<Integer, SampleVO> map=new HashMap<>();
+		for(int i=0; i<=10; i++) {
+			SampleVO vo=new SampleVO();
+			vo.setFirstName("Çï·Î");
+			vo.setLastName("Å°Æ¼");
+			vo.setMno(i);
+			map.put(i, vo);
+		}
+		return map;
+	}
+}//class SampleController
