@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.p.project.domain.SampleVO;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -60,4 +62,28 @@ public class SampleController {
 		}
 		return map;
 	}
+	
+	//ResponseEntity HTTP상태코드 제어. 예외적인 상황에서 문제 발생시 정보 전달
+	@ResponseBody
+	@RequestMapping("/sendErrorAuth")
+	public ResponseEntity<Void> sendListAuth(){
+		//HTTP 상태(Status) 코드 전송
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/sendErrorNot")
+	public ResponseEntity<List<SampleVO>> sendListNot(){
+		List<SampleVO> list=new ArrayList<>();
+		for(int i=0; i<10; i++) {
+			SampleVO vo=new SampleVO();
+			vo.setFirstName("로로");
+			vo.setLastName("마마");
+			vo.setMno(i);
+			list.add(vo);
+		}
+		return new ResponseEntity<>(list, HttpStatus.NOT_FOUND);
+	}
+	
+	//
 }//class SampleController
